@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Secure Data Intelligence Platform — AI Gateway, Scanner, Log Analyzer & Risk Engine for sensitive data detection and security analysis.">
+  <title>SISA — AI Secure Data Intelligence Platform</title>
+  <link rel="stylesheet" href="/static/style.css?v=2">
+</head>
+<body>
+
+<!-- Background Effects -->
+<div class="bg-pattern"></div>
+<div class="bg-grid"></div>
+<div class="bg-pulse" id="bg-pulse"></div>
+
+<div class="app-container">
+
+  <!-- ═══════ Navbar ═══════ -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-logo">🛡️</div>
+      <div class="navbar-brand-text">
+        <div class="navbar-title">SISA <span>Intelligence</span></div>
+        <div class="navbar-subtitle">Secure Data Analysis Platform</div>
+      </div>
+    </div>
+    <div class="navbar-links">
+      <a href="#tabNav" class="nav-link active"><span class="nav-icon">🔍</span> Scanner</a>
+      <a href="#resultsSection" class="nav-link"><span class="nav-icon">📊</span> Analysis</a>
+      <a href="#insightsCard" class="nav-link"><span class="nav-icon">🤖</span> AI Insights</a>
+      <a href="#playbookArea" class="nav-link playbook-link" id="navPlaybook" style="display: none;"><span class="nav-icon">📜</span> Playbook</a>
+    </div>
+    <div class="navbar-actions">
+      <div class="ai-status-pill">
+        <span class="ai-status-dot"></span>
+        <span class="ai-status-text">Gemini AI Active</span>
+      </div>
+      <div class="navbar-status">
+        <span class="status-dot"></span>
+        <span class="status-text">System Live</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════ Hero ═══════ -->
+  <section class="hero">
+    <h1>AI-Powered <span>Security Intelligence</span></h1>
+    <p>
+      Ingest text, files, SQL queries, logs, and live chat. Detect secrets, credentials, anomalies,
+      and sensitive data leaks with AI-driven analysis and real-time risk scoring.
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge">🔍 Data Scanner</span>
+      <span class="hero-badge">📊 Log Analyzer</span>
+      <span class="hero-badge">⚡ Risk Engine</span>
+      <span class="hero-badge">🤖 AI Insights</span>
+      <span class="hero-badge">🛡️ Policy Engine</span>
+    </div>
+  </section>
+
+  <!-- ═══════ Input Section ═══════ -->
+  <section class="input-section">
+
+    <!-- Tab Navigation -->
+    <div class="tab-nav" id="tabNav">
+      <button class="tab-btn active" data-tab="text" id="tab-text">
+        <span class="tab-icon">📝</span> Text
+      </button>
+      <button class="tab-btn" data-tab="file" id="tab-file">
+        <span class="tab-icon">📄</span> File Upload
+      </button>
+      <button class="tab-btn" data-tab="log" id="tab-log">
+        <span class="tab-icon">📋</span> Log File
+      </button>
+      <button class="tab-btn" data-tab="sql" id="tab-sql">
+        <span class="tab-icon">🗃️</span> SQL
+      </button>
+      <button class="tab-btn" data-tab="chat" id="tab-chat">
+        <span class="tab-icon">💬</span> Chat
+      </button>
+    </div>
+
+    <!-- Tab: Text -->
+    <div class="tab-content active" id="content-text">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">📝</span> Text Input</div>
+        </div>
+        <textarea id="textInput" placeholder="Paste any text content to scan for sensitive data, credentials, secrets, or security issues..."></textarea>
+      </div>
+    </div>
+
+    <!-- Tab: File Upload -->
+    <div class="tab-content" id="content-file">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">📄</span> File Upload</div>
+        </div>
+        <div class="drop-zone" id="fileDropZone">
+          <span class="drop-zone-icon">📤</span>
+          <div class="drop-zone-title">Drop your file here or click to browse</div>
+          <div class="drop-zone-subtitle">Supports PDF, DOC, DOCX, TXT files (max 10MB)</div>
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+        </div>
+        <div class="file-info" id="fileInfo">
+          <span>📎</span>
+          <span id="fileName"></span>
+          <span id="fileSize"></span>
+          <span class="file-remove" id="fileRemove">✕</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Log File -->
+    <div class="tab-content" id="content-log">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">📋</span> Log Input</div>
+        </div>
+        <div class="drop-zone" id="logDropZone">
+          <span class="drop-zone-icon">📋</span>
+          <div class="drop-zone-title">Drop a log file here or click to browse</div>
+          <div class="drop-zone-subtitle">Supports .log and .txt files (max 10MB)</div>
+          <input type="file" id="logFileInput" accept=".log,.txt">
+        </div>
+        <div class="file-info" id="logFileInfo">
+          <span>📎</span>
+          <span id="logFileName"></span>
+          <span id="logFileSize"></span>
+          <span class="file-remove" id="logFileRemove">✕</span>
+        </div>
+        <div style="margin-top: 16px; font-size: 0.82rem; color: var(--text-muted);">— or paste log content directly —</div>
+        <textarea id="logInput" placeholder="2026-03-10 10:00:01 INFO User login&#10;email=admin@company.com&#10;password=admin123&#10;api_key=sk-prod-xyz&#10;ERROR stack trace: NullPointerException at service.java:45" style="margin-top: 12px; min-height: 160px;"></textarea>
+      </div>
+    </div>
+
+    <!-- Tab: SQL -->
+    <div class="tab-content" id="content-sql">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">🗃️</span> SQL Query</div>
+        </div>
+        <textarea id="sqlInput" placeholder="SELECT * FROM users WHERE email = 'admin@company.com' AND password = 'secret123';"></textarea>
+      </div>
+    </div>
+
+    <!-- Tab: Chat -->
+    <div class="tab-content" id="content-chat">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">💬</span> Live Chat Input</div>
+        </div>
+        <textarea id="chatInput" placeholder="Type or paste chat messages to analyze for sensitive information..."></textarea>
+      </div>
+    </div>
+
+    <!-- Options Bar -->
+    <div class="options-bar">
+      <div class="option-group">
+        <span class="option-label">Mask Sensitive Data</span>
+        <label class="toggle">
+          <input type="checkbox" id="optMask" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="option-group">
+        <span class="option-label">Block High Risk</span>
+        <label class="toggle">
+          <input type="checkbox" id="optBlock">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="option-group">
+        <span class="option-label">Log Analysis</span>
+        <label class="toggle">
+          <input type="checkbox" id="optLog" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Analyze Button -->
+    <button class="analyze-btn" id="analyzeBtn">
+      <div class="spinner"></div>
+      <span class="btn-text">🔍 Analyze Content</span>
+    </button>
+  </section>
+
+  <!-- ═══════ Results ═══════ -->
+  <section class="results-section" id="resultsSection">
+
+    <!-- Risk Score Gauge -->
+    <div class="card risk-gauge" id="riskGauge">
+      <div class="gauge-circle">
+        <svg viewBox="0 0 130 130">
+          <circle class="gauge-bg" cx="65" cy="65" r="56"></circle>
+          <circle class="gauge-fill" id="gaugeFill" cx="65" cy="65" r="56"
+            stroke-dasharray="352" stroke-dashoffset="352"></circle>
+        </svg>
+        <div class="gauge-value">
+          <div class="gauge-number" id="gaugeNumber">0</div>
+          <div class="gauge-label">Risk Score</div>
+        </div>
+      </div>
+      <div class="gauge-info">
+        <div class="gauge-level" id="gaugeLevel">—</div>
+        <div class="gauge-summary" id="gaugeSummary">Submit content for analysis</div>
+        <div class="risk-pills" id="riskPills"></div>
+      </div>
+    </div>
+
+    <!-- Action Badge -->
+    <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Policy Action:</span>
+      <span class="action-badge" id="actionBadge">—</span>
+    </div>
+
+    <!-- Results Grid -->
+    <div class="results-grid">
+
+      <!-- Findings Table -->
+      <div class="card" id="findingsCard">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">🔎</span> Findings</div>
+          <span id="findingsCount" style="font-size: 0.82rem; color: var(--text-muted);"></span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="findings-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Value</th>
+                <th>Risk</th>
+                <th>Line</th>
+              </tr>
+            </thead>
+            <tbody id="findingsBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="findingsEmpty" style="display: none;">
+          <div class="empty-state-icon">✅</div>
+          <div class="empty-state-title">No findings detected</div>
+        </div>
+      </div>
+
+      <!-- AI Consultation CTA (NEW) -->
+      <div class="card ai-cta-card" id="aiCtaCard">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">🤖</span> AI Security Consultant</div>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 20px;">
+          Extend your analysis with our **Gemini 1.5 Pro** LLM. 
+          Get deep security insights, anomaly correlations, and a custom remediation playbook.
+        </p>
+        <button class="analyze-btn ai-btn" id="consultAiBtn">
+          <span class="btn-icon">✨</span>
+          <span class="btn-text">Consult AI Expert</span>
+          <div class="spinner" id="aiConsultSpinner"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- AI Security Hub (Decoupled Section) -->
+    <div id="aiHub" style="display: none; margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(99, 102, 241, 0.1);">
+      <div class="section-badge">LLM POWERED</div>
+      <h2 style="margin-bottom: 30px; font-size: 1.8rem;">AI Security <span style="color: var(--accent-secondary);">Hub</span></h2>
+      
+      <div class="card ai-hub-card" id="insightsCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="icon">🤖</span> AI-Powered Intelligence
+            <span class="ai-core-badge">AI CORE</span>
+          </div>
+          <button class="analyze-btn" id="playbookBtn" style="width: auto; padding: 8px 16px; font-size: 0.8rem; display: none;">
+             <span class="btn-text">📜 Generate Playbook</span>
+             <div class="spinner" id="playbookSpinner" style="width: 14px; height: 14px;"></div>
+          </button>
+        </div>
+        <div id="insightsList"></div>
+
+        <div class="card-header" style="margin-top: 20px;">
+          <div class="card-title"><span class="icon">💡</span> Strategic Recommendations</div>
+        </div>
+        <div id="recommendationsList"></div>
+
+        <!-- AI Playbook Section -->
+        <div id="playbookArea" style="display: none; margin-top: 25px; padding-top: 25px; border-top: 1px dashed rgba(99, 102, 241, 0.2);">
+          <div class="card-title" style="margin-bottom: 12px; color: #a5b4fc;"><span class="icon">📜</span> Security Remediation Playbook</div>
+          <div id="playbookContent" style="font-size: 0.88rem; color: #94a3b8; line-height: 1.7; white-space: pre-wrap; font-family: var(--font-mono);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anomalies -->
+    <div class="card" id="anomaliesCard" style="display: none; margin-bottom: 24px;">
+      <div class="card-header">
+        <div class="card-title"><span class="icon">⚠️</span> Anomalies Detected</div>
+      </div>
+      <div id="anomaliesList"></div>
+    </div>
+
+    <!-- Log Viewer -->
+    <div class="card log-viewer" id="logViewer" style="display: none;">
+      <div class="card-header">
+        <div class="card-title"><span class="icon">📋</span> Log Viewer</div>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Sensitive lines are highlighted in red</span>
+      </div>
+      <div class="log-viewer-content" id="logViewerContent"></div>
+    </div>
+
+    <!-- Metadata -->
+    <div class="card" id="metadataCard" style="display: none; margin-top: 24px;">
+      <div class="card-header">
+        <div class="card-title"><span class="icon">📊</span> Analysis Metadata</div>
+      </div>
+      <div class="metadata-grid" id="metadataGrid"></div>
+    </div>
+
+    <!-- Masked Content -->
+    <div class="card" id="maskedCard" style="display: none; margin-top: 24px;">
+      <div class="card-header">
+        <div class="card-title"><span class="icon">🔒</span> Masked Content</div>
+      </div>
+      <div class="masked-content" id="maskedContent"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>AI Secure Data Intelligence Platform &mdash; Hackathon Project 2026</p>
+    <p style="margin-top: 6px;">Built with FastAPI + Vanilla JS &bull; AI Gateway &bull; Scanner &bull; Log Analyzer &bull; Risk Engine</p>
+  </footer>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- JS Scripts -->
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>
