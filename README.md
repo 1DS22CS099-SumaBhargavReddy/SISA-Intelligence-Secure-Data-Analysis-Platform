@@ -109,7 +109,7 @@ python -m uvicorn main:app --host 0.0.0.0 --port 8000
 
 ### Step 4: Access the Application
 Open your browser and navigate to:
-**[http://localhost:8000/app](http://localhost:8000/app)**
+**https://sisa-intelligence-secure-data-analy-sable.vercel.app/app**
 
 ## 🛡️ Security & Observability
 The platform is designed with security in mind, implementing CORS protection and a robust error-handling middleware to ensure stable operations during high-load security scans.
